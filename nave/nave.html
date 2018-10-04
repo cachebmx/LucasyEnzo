@@ -16,12 +16,11 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 
-<body onkeydown="teclaPresionada(event);"
-      onkeyup = "teclaNoPresionada();">
+<body>
     <canvas id="miCanvas" width="640" height="480"></canvas>
 
 </body>
-
+    
     <script type="application/javascript">
 
         var canvas = document.getElementById("miCanvas");
@@ -77,28 +76,28 @@
 			enemigos.push(new enemigo());
 		}
 
-        var moverDerecha = function () {
+        /* var moverDerecha = function () {
 			x++;
         
 
         if (indiceAnimacion < 2 && tiempoAcumulado > 1) {
-                tiempoAcumulado = 0;
-                indiceAnimacion++;
+              tiempoAcumulado = 0;
+              indiceAnimacion++;
                       }
-                }
+               }
 
          var moverIzquierda = function () {
                 x--;
 
          if (indiceAnimacion < 0 && tiempoAcumulado > 1) {
                 tiempoAcumulado = 0;
-                indiceAnimacion--;
+               indiceAnimacion--;
 
             }
             
         }
 
-        var moverPersonaje = moverDerecha;
+        var moverPersonaje = moverDerecha; */
 
         function actualizarJuego() {
             var esteCuadro = new Date().getTime(),
@@ -138,14 +137,23 @@
                 indiceAnimacion -= indiceAnimacion > 2 ? 1 : -1;
             }
             }
-    function teclaNoPresionada () {
-        estaMoviendo = false
+
+            var TeclasPresionadas = {
+            '65': false,
+            '83': false,
+            '68': false,
+            '87': false
+    },
+
+            function teclaNoPresionada () {
+            var tecla = event.keyCode;
+            TeclasPresionadas[tecla] = false;
     }
      function teclaPresionada(event){
-        console.log(event);
         var tecla = event.keyCode;
-
-        switch (tecla) {
+        TeclasPresionadas[tecla] = true;
+     }       
+        /*switch (tecla) {
             case 65:
             x--;
             estaMoviendo = true;
@@ -171,8 +179,9 @@
             y--;
             break;
         }   
-              }
-
+              }*/
+              document.addEventListener('keydown', teclaPresionada, false);
+                document.addEventListener('keyup', teclaNoPresionada, false);
     </script>
     <style>
         #miCanvas {
